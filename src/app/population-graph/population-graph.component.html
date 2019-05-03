@@ -1,0 +1,7 @@
+<div style="background-color: white;padding: 10px">
+  <h4 style="text-align: center;color: tomato;font-weight: bold">State Wise Population 2021</h4>
+  <div style="display: block">
+    <canvas baseChart [data]="pieChartData" [labels]="pieChartLabels" [chartType]="pieChartType"
+      *ngIf="pieChartData.length>0"></canvas>
+  </div>
+</div>

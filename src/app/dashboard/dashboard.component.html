@@ -1,0 +1,93 @@
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet"
+    integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+
+<body class="home">
+    <div class="container-fluid display-table">
+        <div class="row display-table-row">
+            <div class="col-md-2 col-sm-1 hidden-xs display-table-cell v-align box" id="navigation" >
+                <div class="logo">
+                    <img [src]=user.Image alt="profile-pic" class="hidden-xs hidden-sm"
+                        style="border-radius: 50%;height: 150px;width: 150px;">
+                </div>
+                <div class="navi" *ngIf="user.Role==1">
+                    <ul>
+                        <li class="active"><a [routerLink]="['/dashboard']"><i class="fa fa-pie-chart"
+                                    aria-hidden="true"></i><span class="hidden-xs hidden-sm">Dashboard</span></a></li>
+                        <li><a [routerLink]="['volunteers']"><i class="fa fa-user" aria-hidden="true"></i><span
+                                    class="hidden-xs hidden-sm">Volunteers</span></a></li>
+                        <li><a href="#" (click)="logout()"><i class="fa fa-sign-out" aria-hidden="true"></i><span
+                                    class="hidden-xs hidden-sm">Logout</span></a></li>
+                    </ul>
+                </div>
+                <div class="navi" *ngIf="user.Role==0">
+                    <ul>
+                        <li class="active"><a [routerLink]="['/dashboard']"><i class="fa fa-pie-chart"
+                                    aria-hidden="true"></i><span class="hidden-xs hidden-sm">Dashboard</span></a></li>
+                        <li><a [routerLink]="['house']"><i class="fa fa-user" aria-hidden="true"></i><span
+                                    class="hidden-xs hidden-sm">Collect Data</span></a></li>
+                        <li><a href="" (click)="logout()"><i class="fa fa-sign-out" aria-hidden="true"></i><span
+                                    class="hidden-xs hidden-sm">Logout</span></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-10 col-sm-11 display-table-cell v-align">
+                <!--<button type="button" class="slide-toggle">Slide Toggle</button> -->
+                <div class="row">
+                    <header>
+                        <div class="col-md-7">
+                            <nav class="navbar-default pull-left">
+                                <div class="navbar-header">
+                                    <button type="button" class="navbar-toggle collapsed" data-toggle="offcanvas"
+                                        data-target="#side-menu" aria-expanded="false">
+                                        <span class="sr-only">Toggle navigation</span>
+                                        <span class="icon-bar"></span>
+                                        <span class="icon-bar"></span>
+                                        <span class="icon-bar"></span>
+                                    </button>
+                                </div>
+                            </nav>
+                        </div>
+                    </header>
+                </div>
+                <div class="user-dashboard">
+                    <h1>Hello, {{user.FirstName}} {{user.LastName}}</h1>
+                    <div class="container-fluid">
+                        <router-outlet></router-outlet>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+    <!-- Modal -->
+    <div id="add_project" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header login-header">
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                    <h4 class="modal-title">Add Project</h4>
+                </div>
+                <div class="modal-body">
+                    <input type="text" placeholder="Project Title" name="name">
+                    <input type="text" placeholder="Post of Post" name="mail">
+                    <input type="text" placeholder="Author" name="passsword">
+                    <textarea placeholder="Desicrption"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="cancel" data-dismiss="modal">Close</button>
+                    <button type="button" class="add-project" data-dismiss="modal">Save</button>
+                </div>
+            </div>
+
+        </div>
+    </div>

@@ -1,0 +1,44 @@
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<div>
+  <div class="row">
+    <div class="panel panel-primary filterable">
+      <div class="panel-heading">
+        <h3 class="panel-title">Voulunteers</h3>
+        <div class="pull-right" style="float:right">
+          <button class="btn btn-default btn-xs btn-filter"><span class="glyphicon glyphicon-filter"></span>
+            Filter</button>
+        </div>
+      </div>
+      <table class="table">
+        <thead>
+          <tr class="filters">
+            <th><input type="text" class="form-control" placeholder="Photo" disabled></th>
+            <th><input type="text" class="form-control" placeholder="First Name" disabled></th>
+            <th><input type="text" class="form-control" placeholder="Last Name" disabled></th>
+            <th><input type="text" class="form-control" placeholder="Email" disabled></th>
+            <th><input type="text" class="form-control" placeholder="Aadhar No" disabled></th>
+            <th><input type="text" class="form-control" placeholder="Status" disabled></th>
+            <th><input type="text" class="form-control" placeholder="Action" disabled></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor='let Volunteer of Volunteers'>
+            <td><img style="width:70px;height:70px" [src]='Volunteer.Image?Volunteer.Image:defaultImg'><br /></td>
+            <td>{{Volunteer.FirstName}}</td>
+            <td>{{Volunteer.LastName}}</td>
+            <td>{{Volunteer.Email}}</td>
+            <td>{{Volunteer.AadharNumber}}</td>
+            <td>{{Volunteer.ApprovalStatus==0?'Pending':Volunteer.ApprovalStatus==1?'Approved':'Declined'}}</td>
+            <td><button class="btn btn-outline-danger mr-4" (click)=decline(Volunteer.UserID)>Decline</button><button
+              class="btn btn-outline-success" (click)=approve(Volunteer.UserID)>Approve</button></td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
+      <div class="alert alert-info" role="alert" *ngIf='Volunteers.length==0' style="width:100%;text-align: center">
+          <span *ngIf="status==0">No pending requests</span>
+          <span *ngIf="status==1">No approved volunteers</span>
+          <span *ngIf="status==2">No declined volunteers</span>
+        </div>
+    </div>
+</div>

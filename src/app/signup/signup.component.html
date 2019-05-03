@@ -1,0 +1,97 @@
+<div class="signup-form">
+  <form #f="ngForm" (ngSubmit)="f.form.valid && onSubmit()" [mustMatch]="['Password', 'ConfirmPassword']" novalidate>
+    <h2>Register</h2>
+    <p class="hint-text">Register as a volunteer for the upcoming census 2021</p>
+    <div class="form-group">
+      <div class="col-xs-6"><input type="text" class="form-control" name="FirstName" placeholder="First Name"
+          [(ngModel)]="model.FirstName" #FirstName="ngModel"
+          [ngClass]="{ 'is-invalid': f.submitted && FirstName.invalid }" required />
+        <div *ngIf="f.submitted && FirstName.invalid" class="invalid-feedback">
+          <div *ngIf="FirstName.errors.required">First Name is required</div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-xs-6"><input type="text" class="form-control" name="LastName" placeholder="Last Name"
+          [(ngModel)]="model.LastName" #LastName="ngModel" [ngClass]="{ 'is-invalid': f.submitted && LastName.invalid }"
+          required />
+        <div *ngIf="f.submitted && LastName.invalid" class="invalid-feedback">
+          <div *ngIf="LastName.errors.required">Last Name is required</div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="Email">Email</label>
+      <input type="text" class="form-control" name="Email" [(ngModel)]="model.Email" #Email="ngModel"
+        [ngClass]="{ 'is-invalid': f.submitted && Email.invalid }" required Email />
+      <div *ngIf="f.submitted && Email.invalid" class="invalid-feedback">
+        <div *ngIf="Email.errors.required">Email is required</div>
+        <div *ngIf="Email.errors.Email">Email must be a valid Email address</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="Password">Password</label>
+      <input type="Password" class="form-control" name="Password" [(ngModel)]="model.Password" #Password="ngModel"
+        [ngClass]="{ 'is-invalid': f.submitted && Password.invalid }" required
+        pattern= '^(?=.*?[A-Za-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$'  />
+      <div *ngIf="f.submitted && Password.invalid" class="invalid-feedback">
+        <div *ngIf="Password.errors.required">Password is required</div>
+        <div *ngIf="Password.errors?.pattern">Password minimum length should be 8 characters and it must have at-least 1
+          special character, 1 number and 1 alphabet.</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="ConfirmPassword">Confirm Password</label>
+      <input type="password" class="form-control" name="ConfirmPassword" [(ngModel)]="model.ConfirmPassword"
+        #ConfirmPassword="ngModel" [ngClass]="{ 'is-invalid': f.submitted && ConfirmPassword.invalid }" required />
+      <div *ngIf="f.submitted && ConfirmPassword.invalid" class="invalid-feedback">
+        <div *ngIf="ConfirmPassword.errors.required">Confirm Password is required</div>
+        <div *ngIf="ConfirmPassword.errors.mustMatch">Passwords must match</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-xs-6"><input type="number" class="form-control" name="AadharNumber" placeholder="Aadhar Number"
+          [(ngModel)]="model.AadharNumber" #AadharNumber="ngModel"
+          [ngClass]="{ 'is-invalid': f.submitted && AadharNumber.invalid }" required pattern=".{12}"/>
+        <div *ngIf="f.submitted && AadharNumber.invalid" class="invalid-feedback">
+          <div *ngIf="AadharNumber.errors.required">Aadhar Number is required</div>
+          <div *ngIf="AadharNumber.errors?.pattern">Aadhar Number should be of exactly 12 numbers.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- <div class="form-group">
+      <div class="col-xs-6"><input type="file" accept="image/*"class="form-control" name="Image"
+        placeholder="Aadhar Number" [(ngModel)]="model.Image" #Image="ngModel" (change)="selectAndUploadImage($event)" hidden 
+        [ngClass]="{ 'is-invalid': f.submitted && Image.invalid }" required />
+        <button type="button" (click)="Image.click()" class="file btn btn-lg btn-primary">Upload your photo.</button>
+        <label style="margin-left: 5px">{{selectedImage}}</label>
+
+        <div class="progress" *ngIf="progress>0" style="margin-top: 2%">
+          <div class="progress-bar" [style.width.%]="progress">{{progress}}%</div>
+        </div>
+
+        <div *ngIf="f.submitted && Image.invalid" class="invalid-feedback">
+          <div *ngIf="Image.errors.required">Image is required</div>
+        </div>
+      </div>
+    </div> -->
+    <div class="form-group">
+      <input type="file" accept="image/*" name="Image" id="Image" style="display:none;"
+        (change)="selectAndUploadImage($event)" required="required" ngModel #Image />
+      <button type="button" (click)="Image.click()" class="file btn btn-lg btn-primary">Upload your photo.</button>
+      <label style="margin-left: 5px">{{selectedImage}}</label>
+
+      <div class="progress" *ngIf="progress>0" style="margin-top: 2%">
+        <div class="progress-bar" [style.width.%]="progress">{{progress}}%</div>
+      </div>
+      <div *ngIf="f.submitted && selectedImage=='No image selected'" style="color: #dc3545">Image is required</div>
+    </div>
+
+    <div class="form-group">
+      <button type="submit" class="btn btn-success btn-lg btn-block" [disabled]="uploadSuccess==false">Register
+        Now</button>
+    </div>
+    <div class="text-center">Already have an account? <a href="/login">Sign in</a></div>
+  </form>
+</div>

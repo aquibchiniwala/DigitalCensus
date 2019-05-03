@@ -1,0 +1,78 @@
+<div class="jumbotron">
+    <div class="">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <h3>House Registration</h3>
+                <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm"
+                    [mustMatch]="['password', 'confirmPassword']" novalidate>
+                    <div class="form-group">
+                        <label for="buildingNumber">Building Number</label>
+                        <input type="text" class="form-control" name="buildingNumber" [(ngModel)]="model.buildingNumber"
+                            #buildingNumber="ngModel"
+                            [ngClass]="{ 'is-invalid': f.submitted && buildingNumber.invalid }" required />
+                        <div *ngIf="f.submitted && buildingNumber.invalid" class="invalid-feedback">
+                            <div *ngIf="buildingNumber.errors.required">Building Number is required</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="address">Address</label>
+                        <textarea class="form-control" name="address" [(ngModel)]="model.address" #address="ngModel"
+                            [ngClass]="{ 'is-invalid': f.submitted && address.invalid }" required></textarea>
+                        <div *ngIf="f.submitted && address.invalid" class="invalid-feedback">
+                            <div *ngIf="address.errors.required">Address is required</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="state">State</label>
+                        <select class="form-control" id="state" required [(ngModel)]="model.state" name="state"
+                            #state="ngModel" [ngClass]="{ 'is-invalid': f.submitted && state.invalid }" required state>
+                            <option *ngFor="let state of states" [value]="state">{{state}}</option>
+                        </select>
+                        <div *ngIf="f.submitted && state.invalid" class="invalid-feedback">
+                            <div *ngIf="state.errors.required">State is required</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="headFullName">Head Full Name</label>
+                        <input type="text" class="form-control" name="headFullName" [(ngModel)]="model.headFullName"
+                            #headFullName="ngModel" [ngClass]="{ 'is-invalid': f.submitted && headFullName.invalid }"
+                            required />
+                        <div *ngIf="f.submitted && headFullName.invalid" class="invalid-feedback">
+                            <div *ngIf="headFullName.errors.required">Head Full Name is required</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ownershipStatus">Ownership Status</label>
+                        <select class="form-control" id="ownershipStatus" required [(ngModel)]="model.ownershipStatus"
+                            name="ownershipStatus" #ownershipStatus="ngModel"
+                            [ngClass]="{ 'is-invalid': f.submitted && ownershipStatus?.invalid }" required
+                            ownershipStatus>
+                            <option *ngFor="let ownership of ownerships()" [ngValue]="ownershipStatuses[ownership]">
+                                {{ownership}}
+                            </option>
+                        </select>
+                        <div *ngIf="f.submitted && ownershipStatus?.invalid" class="invalid-feedback">
+                            <div *ngIf="ownershipStatus?.errors.required">Ownership Status is required</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="numberOfRooms">Number Of Rooms</label>
+                        <input id="noOfRooms" type="number" min="0" class="form-control" name="numberOfRooms"
+                            [(ngModel)]="model.numberOfRooms" #numberOfRooms="ngModel"
+                            [ngClass]="{ 'is-invalid': f.submitted && numberOfRooms.invalid }" required />
+                        <div *ngIf="f.submitted && numberOfRooms.invalid" class="invalid-feedback">
+                            <div *ngIf="numberOfRooms.errors.required">Number Of Rooms is required</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <button class="btn btn-primary">Register</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

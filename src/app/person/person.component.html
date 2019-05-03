@@ -1,0 +1,125 @@
+<div class="jumbotron">
+  <div class="">
+    <div class="row">
+      <div class="col-md-8 offset-md-2">
+        <h3>Person Registration</h3>
+        <form name="form" (ngSubmit)="f.form.valid && onSubmit(f)" #f="ngForm" novalidate>
+
+          <div class="form-group">
+            <label for="fullName">Full Name</label>
+            <input type="text" class="form-control" name="fullName" [(ngModel)]="model.fullName" #fullName="ngModel"
+              [ngClass]="{ 'is-invalid': f.submitted && fullName.touched && fullName.invalid }" required />
+            <div *ngIf="f.submitted && fullName.touched && fullName.invalid" class="invalid-feedback">
+              <div *ngIf="fullName.errors.required && fullName.touched">Full Name is required</div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="relationToHead">Relation To Head</label>
+            <select class="form-control" id="relationToHead" required [(ngModel)]="model.relationToHead"
+              name="relationToHead" #relationToHead="ngModel"
+              [ngClass]="{ 'is-invalid': f.submitted && relationToHead.touched && relationToHead.invalid }" required
+              relationToHead>
+              <option *ngFor="let relationShip of relationShips()" [ngValue]="relations[relationShip]">
+                {{relationShip}}
+              </option>
+            </select>
+            <div *ngIf="f.submitted && relationToHead.touched && relationToHead.invalid" class="invalid-feedback">
+              <div *ngIf="relationToHead.errors.required && relationToHead.touched">Relation To Head is required</div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="gender">Gender</label>
+            <select class="form-control" id="gender" required [(ngModel)]="model.gender" name="gender" #gender="ngModel"
+              [ngClass]="{ 'is-invalid': f.submitted && gender.touched && gender.invalid }" required gender>
+              <option *ngFor="let gender of getGenders()" [ngValue]="genders[gender]">
+                {{gender}}
+              </option>
+            </select>
+            <div *ngIf="f.submitted && gender.touched && gender.invalid" class="invalid-feedback">
+              <div *ngIf="gender.errors.required && gender.touched">Gender is required</div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="dateOfBirth">Date Of Birth</label>
+            <div class="input-group">
+              <input class="form-control" placeholder="yyyy-mm-dd" name="dateOfBirth" [(ngModel)]="model.dateOfBirth"
+                ngbDatepicker #d="ngbDatepicker" #dateOfBirth="ngModel"
+                [ngClass]="{ 'is-invalid': f.submitted && dateOfBirth.touched && dateOfBirth.invalid }" required
+                readonly style="background-color: white;" />
+
+              <div class="input-group-append">
+                <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"><i
+                    class="fa fa-calendar"></i></button>
+              </div>
+              <div *ngIf="f.submitted && dateOfBirth.touched && dateOfBirth?.invalid" class="invalid-feedback">
+                <div *ngIf="dateOfBirth?.errors.required && dateOfBirth.touched">Date Of Birth is required</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="maritalStatus">Marital Status</label>
+            <select class="form-control" id="maritalStatus" required [(ngModel)]="model.maritalStatus"
+              name="maritalStatus" #maritalStatus="ngModel"
+              [ngClass]="{ 'is-invalid': f.submitted && maritalStatus.touched && maritalStatus.invalid }" required
+              maritalStatus>
+              <option *ngFor="let maritalStatus of getMaritalStatuses()" [ngValue]="maritalStatuses[maritalStatus]">
+                {{maritalStatus}}
+              </option>
+            </select>
+            <div *ngIf="f.submitted && maritalStatus.touched && maritalStatus.invalid" class="invalid-feedback">
+              <div *ngIf="maritalStatus.errors.required && maritalStatus.touched">Marital Status is required</div>
+            </div>
+          </div>
+
+          <div class="form-group" *ngIf="model.maritalStatus && model.maritalStatus!=0">
+            <label for="ageAtMarriage">Age At marriage</label>
+            <input id="ageAtMarriage" type="number" min="0" class="form-control" name="ageAtMarriage"
+              [(ngModel)]="model.ageAtMarriage" #ageAtMarriage="ngModel"
+              [ngClass]="{ 'is-invalid': f.submitted && ageAtMarriage.touched && ageAtMarriage.invalid }" required />
+            <div *ngIf="f.submitted && ageAtMarriage.touched && ageAtMarriage.invalid" class="invalid-feedback">
+              <div *ngIf="ageAtMarriage.errors.required && ageAtMarriage.touched">Age At marriage is required</div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="occupation">Occupation</label>
+            <select class="form-control" id="occupation" required [(ngModel)]="model.occupation" name="occupation"
+              #occupation="ngModel"
+              [ngClass]="{ 'is-invalid': f.submitted && occupation.touched && occupation.invalid }" required occupation>
+              <option *ngFor="let occupation of getOccupations()" [ngValue]="occupations[occupation]">
+                {{occupation}}
+              </option>
+            </select>
+            <div *ngIf="f.submitted && occupation.touched && occupation.invalid" class="invalid-feedback">
+              <div *ngIf="occupation.errors.required && occupation.touched">Occupation is required</div>
+            </div>
+          </div>
+          <div class="form-group" *ngIf="model.occupation==0 || model.occupation==1 ">
+            <label for="occupationIndustry">Occupation Industry</label>
+            <input type="text" class="form-control" name="occupationIndustry" [(ngModel)]="model.occupationIndustry"
+              #occupationIndustry="ngModel"
+              [ngClass]="{ 'is-invalid': f.submitted && occupationIndustry.touched && occupationIndustry.invalid }"
+              required />
+            <div *ngIf="f.submitted && occupationIndustry.touched && occupationIndustry.invalid"
+              class="invalid-feedback">
+              <div *ngIf="occupationIndustry.errors.required && occupationIndustry.touched">Occupation Industry is
+                required</div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <button class="btn btn-primary">Add</button>
+          </div>
+
+        </form>
+        <div class="form-group">
+            <button class="btn btn-danger" (click)="finish()" style="width:100%;margin-top:10px">Finish</button>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
